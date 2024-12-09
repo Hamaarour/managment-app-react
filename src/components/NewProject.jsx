@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import Input from "./Input";
 import Modal from "./Modal";
 
-const NewProject = ({ onAdd }) => {
-  const modal = useRef(); // Corrected `useRef` invocation
+const NewProject = ({ onAdd, onCancel }) => {
+  const modal = useRef();
   const title = useRef();
   const desc = useRef();
   const date = useRef();
@@ -19,7 +19,7 @@ const NewProject = ({ onAdd }) => {
     if (!enteredDate) errors.date = "Date is required.";
 
     if (Object.keys(errors).length > 0) {
-      modal.current.open(); 
+      modal.current.open();
       return;
     }
 
@@ -34,12 +34,17 @@ const NewProject = ({ onAdd }) => {
     <>
       <Modal ref={modal} buttonCaption="Close">
         <h2 className="text-xl font-bold text-stone-700 my-4">Invalid Input</h2>
-        <p className="text-stone-600 mb-">Ops... Please check your input values.</p>
+        <p className="text-stone-600 mb-">
+          Ops... Please check your input values.
+        </p>
       </Modal>
       <div className="w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
-            <button className="text-stone-800 hover:text-stone-950">
+            <button
+              onClick={onCancel}
+              className="text-stone-800 hover:text-stone-950"
+            >
               cancel
             </button>
           </li>
